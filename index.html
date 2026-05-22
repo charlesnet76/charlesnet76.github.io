@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carlos · Full Stack Developer & Database Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Syne:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080c10;
+  --bg2: #0d1218;
+  --bg3: #111820;
+  --border: rgba(56,180,139,0.15);
+  --border2: rgba(56,180,139,0.3);
+  --accent: #38b48b;
+  --accent2: #1d9e75;
+  --accent-dim: rgba(56,180,139,0.08);
+  --accent-glow: rgba(56,180,139,0.2);
+  --text: #e8edf2;
+  --text2: #8a9bb0;
+  --text3: #4a5a6a;
+  --mono: 'JetBrains Mono', monospace;
+  --sans: 'Syne', sans-serif;
+  --blue: #4a9eff;
+  --amber: #f0a832;
+  --coral: #e86b5a;
+  --purple: #9b7fe8;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(56,180,139,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(56,180,139,0.03) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+  z-index: 0;
+}
+body::after {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  animation: scan 6s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.5;
+}
+@keyframes scan { 0%,100%{top:0;opacity:0} 10%{opacity:0.5} 90%{opacity:0.5} 100%{top:100vh;opacity:0} }
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 50;
+  background: rgba(8,12,16,0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2rem;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-logo { font-family: var(--mono); font-weight: 600; font-size: 13px; color: var(--accent); letter-spacing: 0.05em; }
+.nav-logo span { color: var(--text2); }
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a { font-size: 12px; color: var(--text2); text-decoration: none; letter-spacing: 0.08em; transition: color .2s; }
+.nav-links a::before { content: '// '; color: var(--text3); }
+.nav-links a:hover { color: var(--accent); }
+.nav-badge { font-size: 11px; padding: 3px 10px; border: 1px solid var(--accent); color: var(--accent); border-radius: 2px; letter-spacing: 0.05em; animation: pulse-border 3s ease-in-out infinite; }
+@keyframes pulse-border { 0%,100%{box-shadow:0 0 0 0 var(--accent-glow)} 50%{box-shadow:0 0 8px 2px var(--accent-glow)} }
+section { position: relative; z-index: 1; }
+#hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; }
+.hero-inner { max-width: 1100px; margin: 0 auto; padding: 8rem 2rem 4rem; position: relative; display: flex; align-items: center; }
+.hero-content { flex: 1; }
+@media(min-width:900px){ .hero-content { padding-right: 460px; } .terminal { display: block; } }
+.hero-label { font-size: 11px; letter-spacing: 0.2em; color: var(--accent); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 10px; }
+.hero-label::before { content: ''; display: block; width: 32px; height: 1px; background: var(--accent); }
+.hero-name { font-family: var(--sans); font-size: clamp(3rem, 8vw, 6.5rem); font-weight: 800; line-height: 0.95; letter-spacing: -0.02em; margin-bottom: 1rem; color: var(--text); }
+.hero-name .accent { color: var(--accent); }
+.hero-title { font-size: clamp(1rem, 2vw, 1.3rem); color: var(--text2); font-weight: 300; margin-bottom: 2rem; letter-spacing: 0.02em; }
+.hero-desc { max-width: 520px; color: var(--text2); font-size: 13px; line-height: 1.8; margin-bottom: 3rem; border-left: 2px solid var(--border2); padding-left: 1.25rem; }
+.hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 4rem; }
+.btn { padding: 10px 24px; font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; cursor: pointer; text-decoration: none; transition: all .2s; border-radius: 2px; display: inline-flex; align-items: center; gap: 8px; }
+.btn-primary { background: var(--accent); color: var(--bg); border: 1px solid var(--accent); font-weight: 600; }
+.btn-primary:hover { background: transparent; color: var(--accent); box-shadow: 0 0 16px var(--accent-glow); }
+.btn-secondary { background: transparent; color: var(--text2); border: 1px solid var(--border2); }
+.btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+.hero-stats { display: flex; gap: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); }
+.stat-val { font-family: var(--sans); font-size: 2rem; font-weight: 700; color: var(--accent); line-height: 1; }
+.stat-label { font-size: 11px; color: var(--text3); margin-top: 4px; letter-spacing: 0.1em; text-transform: uppercase; }
+.terminal { position: absolute; right: 2rem; top: 50%; transform: translateY(-50%); width: 420px; background: var(--bg2); border: 1px solid var(--border2); border-radius: 6px; overflow: hidden; font-size: 12px; display: none; }
+.terminal-bar { background: var(--bg3); padding: 8px 14px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid var(--border); }
+.dot { width: 10px; height: 10px; border-radius: 50%; }
+.dot-r { background: #e86b5a; } .dot-y { background: #f0a832; } .dot-g { background: #38b48b; }
+.terminal-title { margin-left: auto; font-size: 10px; color: var(--text3); }
+.terminal-body { padding: 1rem; line-height: 2; }
+.t-dim { color: var(--text3); } .t-green { color: var(--accent); } .t-blue { color: var(--blue); } .t-amber { color: var(--amber); } .t-text { color: var(--text2); }
+.t-cursor { display: inline-block; width: 8px; height: 14px; background: var(--accent); vertical-align: middle; animation: blink 1s step-end infinite; }
+@keyframes blink { 50%{opacity:0} }
+.section-wrap { max-width: 1100px; margin: 0 auto; padding: 6rem 2rem; }
+.section-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 3rem; }
+.section-num { font-size: 11px; color: var(--accent); letter-spacing: 0.15em; }
+.section-title { font-family: var(--sans); font-size: 2rem; font-weight: 700; color: var(--text); }
+.section-line { flex: 1; height: 1px; background: var(--border); }
+#stack { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.stack-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+.stack-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 4px; padding: 1rem; position: relative; overflow: hidden; transition: border-color .2s, transform .2s; cursor: default; }
+.stack-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--bar-color, var(--accent)); opacity: 0.6; }
+.stack-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+.stack-icon { font-size: 22px; margin-bottom: 8px; }
+.stack-name { font-size: 12px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+.stack-level { font-size: 10px; color: var(--text3); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; }
+.stack-bar-wrap { height: 3px; background: rgba(255,255,255,0.05); border-radius: 2px; overflow: hidden; }
+.stack-bar { height: 3px; border-radius: 2px; background: var(--bar-color, var(--accent)); width: 0; transition: width 1.2s cubic-bezier(.16,1,.3,1); }
+.projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
+.project-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; transition: border-color .2s, transform .2s; display: flex; flex-direction: column; }
+.project-card:hover { border-color: var(--border2); transform: translateY(-3px); box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+.project-card.featured { border-color: rgba(56,180,139,0.4); grid-column: span 2; }
+@media(max-width:768px){ .project-card.featured { grid-column: span 1; } }
+.project-header { padding: 1.25rem 1.25rem 0; display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; }
+.project-badge { font-size: 10px; padding: 2px 8px; border-radius: 2px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; }
+.badge-flagship { background: rgba(56,180,139,0.15); color: var(--accent); border: 1px solid rgba(56,180,139,0.3); }
+.badge-data { background: rgba(74,158,255,0.1); color: var(--blue); border: 1px solid rgba(74,158,255,0.2); }
+.badge-devops { background: rgba(240,168,50,0.1); color: var(--amber); border: 1px solid rgba(240,168,50,0.2); }
+.badge-iot { background: rgba(155,127,232,0.1); color: var(--purple); border: 1px solid rgba(155,127,232,0.2); }
+.badge-cloud { background: rgba(232,107,90,0.1); color: var(--coral); border: 1px solid rgba(232,107,90,0.2); }
+.project-links { display: flex; gap: 12px; }
+.project-links a { color: var(--text3); font-size: 18px; text-decoration: none; transition: color .2s; }
+.project-links a:hover { color: var(--accent); }
+.project-preview { margin: 0 1.25rem 1rem; background: var(--bg3); border: 1px solid var(--border); border-radius: 4px; height: 120px; overflow: hidden; }
+.preview-code { padding: 12px; line-height: 1.7; font-size: 10.5px; width: 100%; height: 100%; overflow: hidden; }
+.project-body { padding: 0 1.25rem 1.25rem; flex: 1; display: flex; flex-direction: column; }
+.project-name { font-family: var(--sans); font-size: 1.1rem; font-weight: 700; color: var(--text); margin-bottom: 0.5rem; }
+.project-desc { font-size: 12px; color: var(--text2); line-height: 1.7; margin-bottom: 1rem; flex: 1; }
+.project-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1rem; }
+.tag { font-size: 10px; padding: 2px 8px; border: 1px solid var(--border); color: var(--text3); border-radius: 2px; letter-spacing: 0.05em; }
+.project-metrics { display: flex; gap: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+.metric-n { font-size: 16px; font-weight: 600; color: var(--accent); }
+.metric-l { font-size: 10px; color: var(--text3); letter-spacing: 0.05em; }
+#data { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.pipeline { display: flex; align-items: stretch; gap: 0; margin-bottom: 2rem; overflow-x: auto; padding-bottom: 1rem; }
+.pipe-step { flex: 1; min-width: 160px; background: var(--bg3); border: 1px solid var(--border); border-radius: 4px; padding: 1.25rem 1rem; position: relative; }
+.pipe-step::after { content: '→'; position: absolute; right: -16px; top: 50%; transform: translateY(-50%); color: var(--accent); font-size: 16px; z-index: 2; }
+.pipe-step:last-child::after { display: none; }
+.pipe-step + .pipe-step { margin-left: 16px; }
+.pipe-num { font-size: 10px; color: var(--text3); margin-bottom: 6px; letter-spacing: 0.1em; }
+.pipe-name { font-size: 13px; font-weight: 600; color: var(--accent); margin-bottom: 4px; }
+.pipe-tech { font-size: 11px; color: var(--text2); }
+.data-features { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+.data-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 4px; padding: 1.25rem; }
+.data-card-icon { font-size: 20px; margin-bottom: 8px; }
+.data-card-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+.data-card-desc { font-size: 12px; color: var(--text2); line-height: 1.7; }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+@media(max-width:680px){ .contact-grid{grid-template-columns:1fr} }
+.contact-tagline { font-family: var(--sans); font-size: 1.8rem; font-weight: 700; line-height: 1.2; color: var(--text); margin-bottom: 1rem; }
+.contact-tagline span { color: var(--accent); }
+.contact-desc { font-size: 13px; color: var(--text2); line-height: 1.8; margin-bottom: 2rem; }
+.contact-links { display: flex; flex-direction: column; gap: 10px; }
+.contact-link { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border: 1px solid var(--border); border-radius: 4px; text-decoration: none; color: var(--text2); font-size: 12px; transition: all .2s; }
+.contact-link:hover { border-color: var(--border2); color: var(--accent); background: var(--accent-dim); }
+.contact-link-icon { font-size: 16px; color: var(--accent); }
+.contact-link-label { font-size: 10px; color: var(--text3); display: block; }
+.contact-form { display: flex; flex-direction: column; gap: 12px; }
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-label { font-size: 10px; color: var(--text3); letter-spacing: 0.1em; text-transform: uppercase; }
+.form-input, .form-textarea { background: var(--bg3); border: 1px solid var(--border); border-radius: 4px; padding: 10px 14px; font-family: var(--mono); font-size: 12px; color: var(--text); transition: border-color .2s; outline: none; resize: none; }
+.form-input:focus, .form-textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-dim); }
+.form-textarea { height: 100px; }
+footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; font-size: 11px; color: var(--text3); position: relative; z-index: 1; }
+footer span { color: var(--accent); }
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-logo">carlos<span>.dev</span></div>
+  <ul class="nav-links">
+    <li><a href="#stack">stack</a></li>
+    <li><a href="#projects">projects</a></li>
+    <li><a href="#data">data</a></li>
+    <li><a href="#contact">contact</a></li>
+  </ul>
+  <div class="nav-badge">available for freelance</div>
+</nav>
+
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-label">full stack · database · devops</div>
+      <h1 class="hero-name">Carlos<br><span class="accent">builds.</span></h1>
+      <p class="hero-title">Full Stack Developer · Database Engineer · DevOps in progress</p>
+      <p class="hero-desc">Database management at a FinTech company — designing schemas, optimizing queries, and keeping data reliable at scale. Now bringing that infrastructure discipline to full stack development and cloud DevOps. Based in Sidney, BC · Available weekends for freelance.</p>
+      <div class="hero-actions">
+        <a href="#projects" class="btn btn-primary">▶ view projects</a>
+        <a href="#contact" class="btn btn-secondary">// get in touch</a>
+        <a href="https://github.com/charlesnet76" target="_blank" class="btn btn-secondary">⌥ github</a>
+      </div>
+      <div class="hero-stats">
+        <div><div class="stat-val">40+</div><div class="stat-label">repos</div></div>
+        <div><div class="stat-val">5</div><div class="stat-label">languages</div></div>
+        <div><div class="stat-val">3+</div><div class="stat-label">yrs experience</div></div>
+        <div><div class="stat-val">∞</div><div class="stat-label">weekends</div></div>
+      </div>
+    </div>
+    <div class="terminal">
+      <div class="terminal-bar">
+        <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+        <div class="terminal-title">carlos@devbox ~ zsh</div>
+      </div>
+      <div class="terminal-body">
+        <div><span class="t-dim">$</span> <span class="t-green">whoami</span></div>
+        <div class="t-text">carlos · fintech db engineer · full stack dev</div>
+        <div style="margin-top:8px"><span class="t-dim">$</span> <span class="t-green">curl</span> <span class="t-blue">-s</span> <span class="t-amber">saas-api-starter-production.up.railway.app/health</span></div>
+        <div class="t-dim">{</div>
+        <div>&nbsp;&nbsp;<span class="t-blue">"status"</span><span class="t-dim">:</span> <span class="t-amber">"ok"</span><span class="t-dim">,</span></div>
+        <div>&nbsp;&nbsp;<span class="t-blue">"version"</span><span class="t-dim">:</span> <span class="t-amber">"1.0.0"</span></div>
+        <div class="t-dim">}</div>
+        <div style="margin-top:8px"><span class="t-dim">$</span> <span class="t-green">echo</span> <span class="t-amber">"open for freelance weekends"</span></div>
+        <div class="t-text">open for freelance weekends</div>
+        <div style="margin-top:8px"><span class="t-dim">$</span> <span class="t-cursor"></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="stack">
+  <div class="section-wrap">
+    <div class="section-header">
+      <div class="section-num">01</div>
+      <h2 class="section-title">Tech stack</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="stack-grid" id="stackGrid"></div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="section-wrap">
+    <div class="section-header">
+      <div class="section-num">02</div>
+      <h2 class="section-title">Projects</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card featured reveal">
+        <div class="project-header">
+          <span class="project-badge badge-flagship">⭐ flagship · live</span>
+          <div class="project-links">
+            <a href="https://github.com/charlesnet76/saas-api-starter" target="_blank" title="GitHub">⌥</a>
+            <a href="https://saas-api-starter-production.up.railway.app/health" target="_blank" title="Live API">↗</a>
+          </div>
+        </div>
+        <div class="project-preview">
+          <div class="preview-code">
+            <span style="color:#4a5a6a">// saas-api-starter · refresh token rotation</span><br>
+            <span style="color:#38b48b">router</span><span style="color:#8a9bb0">.post(</span><span style="color:#f0a832">'/auth/refresh'</span><span style="color:#8a9bb0">, async (req, res) => {</span><br>
+            &nbsp;&nbsp;<span style="color:#9b7fe8">const</span> <span style="color:#4a9eff">token</span> <span style="color:#8a9bb0">= await</span> <span style="color:#38b48b">rotateRefreshToken</span><span style="color:#8a9bb0">(req.body.token);</span><br>
+            &nbsp;&nbsp;<span style="color:#9b7fe8">const</span> <span style="color:#4a9eff">access</span> <span style="color:#8a9bb0">=</span> <span style="color:#38b48b">signJWT</span><span style="color:#8a9bb0">({ userId, role }, </span><span style="color:#f0a832">'15m'</span><span style="color:#8a9bb0">);</span><br>
+            &nbsp;&nbsp;<span style="color:#38b48b">res.json</span><span style="color:#8a9bb0">({ access, token });</span><br>
+            <span style="color:#8a9bb0">});</span>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-name">SaaS API Starter <span style="font-size:11px;color:#38b48b;font-family:var(--mono);font-weight:400">· live ↗</span></div>
+          <p class="project-desc">Production-ready REST API deployed on Railway. JWT access tokens (15min expiry), opaque refresh token rotation stored in PostgreSQL (revocable), role-based access control, rate limiting, Helmet security headers, Winston structured logging, Docker multi-stage build, and GitHub Actions CI/CD with secrets scanning.</p>
+          <div class="project-tags">
+            <span class="tag">Node.js</span><span class="tag">Express</span><span class="tag">PostgreSQL</span><span class="tag">JWT</span><span class="tag">RBAC</span><span class="tag">Docker</span><span class="tag">GitHub Actions</span><span class="tag">Railway</span>
+          </div>
+          <div class="project-metrics">
+            <div class="metric"><div class="metric-n">15m</div><div class="metric-l">token expiry</div></div>
+            <div class="metric"><div class="metric-n">live</div><div class="metric-l">deployed</div></div>
+            <div class="metric"><div class="metric-n">0</div><div class="metric-l">secrets in code</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal" style="transition-delay:.1s">
+        <div class="project-header">
+          <span class="project-badge badge-data">data pipeline</span>
+          <div class="project-links"><a href="https://github.com/charlesnet76" target="_blank">⌥</a></div>
+        </div>
+        <div class="project-preview">
+          <div class="preview-code">
+            <span style="color:#4a5a6a">-- dbt · monthly revenue model</span><br>
+            <span style="color:#9b7fe8">SELECT</span><br>
+            &nbsp;&nbsp;<span style="color:#4a9eff">DATE_TRUNC</span>(<span style="color:#f0a832">'month'</span>, txn_date) <span style="color:#9b7fe8">AS</span> month,<br>
+            &nbsp;&nbsp;<span style="color:#4a9eff">SUM</span>(amount) <span style="color:#9b7fe8">AS</span> revenue,<br>
+            &nbsp;&nbsp;<span style="color:#4a9eff">COUNT</span>(*) <span style="color:#9b7fe8">AS</span> volume<br>
+            <span style="color:#9b7fe8">FROM</span> <span style="color:#38b48b">stg_transactions</span>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-name">FinTech Data Pipeline</div>
+          <p class="project-desc">End-to-end ETL pipeline processing mock transaction data. Pandas ingestion → PostgreSQL storage → dbt transformation models → live dashboard. Scheduled with Docker Compose. Shows data engineering depth relevant to FinTech clients.</p>
+          <div class="project-tags"><span class="tag">Python</span><span class="tag">pandas</span><span class="tag">dbt</span><span class="tag">PostgreSQL</span><span class="tag">Docker</span></div>
+          <div class="project-metrics">
+            <div class="metric"><div class="metric-n">3</div><div class="metric-l">dbt layers</div></div>
+            <div class="metric"><div class="metric-n">ETL</div><div class="metric-l">pipeline</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal" style="transition-delay:.2s">
+        <div class="project-header">
+          <span class="project-badge badge-devops">devops lab</span>
+          <div class="project-links"><a href="https://github.com/charlesnet76" target="_blank">⌥</a></div>
+        </div>
+        <div class="project-preview">
+          <div class="preview-code">
+            <span style="color:#4a5a6a"># terraform · azure kubernetes</span><br>
+            <span style="color:#38b48b">resource</span> <span style="color:#f0a832">"azurerm_kubernetes_cluster"</span> <span style="color:#f0a832">"aks"</span> {<br>
+            &nbsp;&nbsp;<span style="color:#4a9eff">name</span> = <span style="color:#f0a832">"carlos-aks-lab"</span><br>
+            &nbsp;&nbsp;<span style="color:#4a9eff">dns_prefix</span> = <span style="color:#f0a832">"carloslab"</span><br>
+            &nbsp;&nbsp;<span style="color:#4a9eff">sku_tier</span> = <span style="color:#f0a832">"Free"</span><br>
+            }
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-name">Azure DevOps Lab</div>
+          <p class="project-desc">Cloud infrastructure practice lab on Azure. Terraform IaC for AKS cluster provisioning, Azure Container Registry, Azure DevOps CI/CD pipelines, Prometheus metrics collection, and Grafana dashboards for observability.</p>
+          <div class="project-tags"><span class="tag">Azure</span><span class="tag">Terraform</span><span class="tag">Kubernetes</span><span class="tag">Prometheus</span><span class="tag">Grafana</span></div>
+          <div class="project-metrics">
+            <div class="metric"><div class="metric-n">IaC</div><div class="metric-l">terraform</div></div>
+            <div class="metric"><div class="metric-n">AKS</div><div class="metric-l">kubernetes</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="data">
+  <div class="section-wrap">
+    <div class="section-header">
+      <div class="section-num">03</div>
+      <h2 class="section-title">Data engineering</h2>
+      <div class="section-line"></div>
+    </div>
+    <p style="color:var(--text2);font-size:13px;margin-bottom:2rem;max-width:520px">Database management is the day job. The data pipeline extends that into full analytics engineering — from raw ingestion to transformed models to live dashboards.</p>
+    <div class="pipeline reveal">
+      <div class="pipe-step"><div class="pipe-num">01 · ingest</div><div class="pipe-name">Extract</div><div class="pipe-tech">Python · pandas · CSV / API</div></div>
+      <div class="pipe-step"><div class="pipe-num">02 · store</div><div class="pipe-name">PostgreSQL</div><div class="pipe-tech">Versioned migrations · indexes</div></div>
+      <div class="pipe-step"><div class="pipe-num">03 · transform</div><div class="pipe-name">dbt models</div><div class="pipe-tech">stg → fct → rpt · data tests</div></div>
+      <div class="pipe-step"><div class="pipe-num">04 · schedule</div><div class="pipe-name">Orchestrate</div><div class="pipe-tech">Docker Compose · Airflow</div></div>
+      <div class="pipe-step"><div class="pipe-num">05 · serve</div><div class="pipe-name">Dashboard</div><div class="pipe-tech">React + Recharts · Grafana</div></div>
+    </div>
+    <div class="data-features reveal" style="margin-top:1.5rem">
+      <div class="data-card"><div class="data-card-icon">🗄️</div><div class="data-card-title">Schema design</div><div class="data-card-desc">Normalized schemas, analytical views, window functions, index optimization — built daily at FinTech scale.</div></div>
+      <div class="data-card"><div class="data-card-icon">🔄</div><div class="data-card-title">Transformation</div><div class="data-card-desc">dbt staging → fact → report layer. Data quality tests (not_null, unique, accepted_values) built into every model.</div></div>
+      <div class="data-card"><div class="data-card-icon">📊</div><div class="data-card-title">Visualization</div><div class="data-card-desc">Custom React dashboards with Recharts. Grafana for infrastructure metrics. Metabase for business intelligence.</div></div>
+      <div class="data-card"><div class="data-card-icon">🔍</div><div class="data-card-title">Observability</div><div class="data-card-desc">Structured JSON logging, Prometheus metrics, Sentry error tracking — production-grade from day one.</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-wrap">
+    <div class="section-header">
+      <div class="section-num">04</div>
+      <h2 class="section-title">Get in touch</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="contact-grid">
+      <div class="reveal">
+        <div class="contact-tagline">Let's build something <span>that works</span>.</div>
+        <p class="contact-desc">Available for part-time freelance on weekends. Best fit: startups needing a solid backend, FinTech data pipelines, database optimization, or DevOps automation.</p>
+        <div class="contact-links">
+          <a href="https://github.com/charlesnet76" target="_blank" class="contact-link"><span class="contact-link-icon">⌥</span><div><span class="contact-link-label">code on</span>GitHub · charlesnet76</div></a>
+          <a href="https://linkedin.com" target="_blank" class="contact-link"><span class="contact-link-icon">in</span><div><span class="contact-link-label">connect on</span>LinkedIn</div></a>
+          <a href="https://upwork.com" target="_blank" class="contact-link"><span class="contact-link-icon">↗</span><div><span class="contact-link-label">hire on</span>Upwork · weekends only</div></a>
+          <a href="https://saas-api-starter-production.up.railway.app/health" target="_blank" class="contact-link"><span class="contact-link-icon">🟢</span><div><span class="contact-link-label">live api</span>saas-api-starter · Railway</div></a>
+        </div>
+      </div>
+      <div class="reveal" style="transition-delay:.15s">
+        <div class="contact-form">
+          <div class="form-group"><label class="form-label">name</label><input class="form-input" type="text" placeholder="your name"></div>
+          <div class="form-group"><label class="form-label">email</label><input class="form-input" type="email" placeholder="your@email.com"></div>
+          <div class="form-group"><label class="form-label">project type</label><input class="form-input" type="text" placeholder="backend API, data pipeline, DevOps..."></div>
+          <div class="form-group"><label class="form-label">message</label><textarea class="form-textarea" placeholder="tell me about the project..."></textarea></div>
+          <button class="btn btn-primary" style="margin-top:4px">▶ send message</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>built by <span>carlos</span> · sidney, bc · <a href="https://saas-api-starter-production.up.railway.app/health" target="_blank" style="color:var(--accent);text-decoration:none">api live ↗</a></p>
+</footer>
+
+<script>
+const stack = [
+  {name:'PostgreSQL',level:'expert',pct:90,color:'#4a9eff',icon:'🐘'},
+  {name:'Python',level:'advanced',pct:85,color:'#38b48b',icon:'🐍'},
+  {name:'Node.js',level:'advanced',pct:80,color:'#639922',icon:'⬡'},
+  {name:'Docker',level:'proficient',pct:72,color:'#185FA5',icon:'🐳'},
+  {name:'Golang',level:'proficient',pct:70,color:'#0F6E56',icon:'🔵'},
+  {name:'GitHub Actions',level:'proficient',pct:68,color:'#f0a832',icon:'⚙'},
+  {name:'Azure',level:'intermediate',pct:60,color:'#534AB7',icon:'☁'},
+  {name:'JavaScript',level:'proficient',pct:65,color:'#993556',icon:'▲'},
+  {name:'.NET / C#',level:'intermediate',pct:58,color:'#5F5E5A',icon:'◈'},
+  {name:'OpenCV',level:'intermediate',pct:55,color:'#993C1D',icon:'👁'},
+  {name:'dbt',level:'learning',pct:42,color:'#e86b5a',icon:'⬟'},
+  {name:'Terraform',level:'learning',pct:38,color:'#9b7fe8',icon:'◇'},
+];
+const grid = document.getElementById('stackGrid');
+stack.forEach(s => {
+  grid.innerHTML += `<div class="stack-card" style="--bar-color:${s.color}"><div class="stack-icon">${s.icon}</div><div class="stack-name">${s.name}</div><div class="stack-level">${s.level}</div><div class="stack-bar-wrap"><div class="stack-bar" data-pct="${s.pct}" style="background:${s.color}"></div></div></div>`;
+});
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); } });
+}, {threshold:0.15});
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+const stackObserver = new IntersectionObserver((entries) => {
+  if(entries[0].isIntersecting){
+    document.querySelectorAll('.stack-bar').forEach(b => { setTimeout(()=>{b.style.width=b.dataset.pct+'%'},100); });
+  }
+},{threshold:0.2});
+const stackSection = document.getElementById('stack');
+if(stackSection) stackObserver.observe(stackSection);
+</script>
+</body>
+</html>
