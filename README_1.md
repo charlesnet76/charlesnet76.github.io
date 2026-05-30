@@ -4,7 +4,7 @@
 
 [![Portfolio](https://img.shields.io/badge/Portfolio-charlesnet76.github.io-0A66C2?style=flat-square&logo=github)](https://charlesnet76.github.io)
 [![Live API](https://img.shields.io/badge/Live_API-SaaS_Starter-22c55e?style=flat-square&logo=railway)](https://saas-api-starter-production.up.railway.app/health)
-[![Location](https://img.shields.io/badge/📍-Victoria%2C%20BC%20Canada-lightgrey?style=flat-square)](https://github.com/charlesnet76)
+[![Location](https://img.shields.io/badge/📍-Sidney%2C%20BC%20Canada-lightgrey?style=flat-square)](https://github.com/charlesnet76)
 [![Open to Work](https://img.shields.io/badge/Open%20to-Full--time%20%26%20Freelance-brightgreen?style=flat-square)](https://charlesnet76.github.io)
 
 ---
@@ -21,8 +21,8 @@ Currently building production-grade systems:
 Detail-oriented about the things that matter: schema normalization, query performance, CI/CD reliability, and clean API contracts. Thrives in remote-first async teams and genuinely curious about how the full payments stack works.
 
 - 🇨🇦 Based in **Victoria, BC** · open to full-time dev roles across Canada
-- 🎓 **NPower Canada** — Data Analysis · Software Development · Azure · Python · DevOps · Agile · SDLC · SQL
-- 💼 Available for **freelance on weekends** · FinTech · Backend · Data pipelines
+- 🎓 **NPower Canada** — Data Analyst Software Development · Azure · Python · DevOps · Agile · SDLC · SQL 
+- 💼 Available for **freelance on weekends** Angular· FinTech · Backend · Data pipelines
 
 ---
 
@@ -82,6 +82,6 @@ Detail-oriented about the things that matter: schema normalization, query perfor
 ## Connect
 
 - 🌐 Portfolio: [charlesnet76.github.io](https://charlesnet76.github.io)
-- 💼 LinkedIn: [linkedin.com/in/carlosmedinat](https://www.linkedin.com/in/carlosmedinat)
-- 📧 Email: [carlosmedinat@gmail.com](mailto:carlosmedinat@gmail.com)
-- 🇨🇦 NPower Canada Alumni · Victoria, BC · Open to work in Canada
+- 💼 LinkedIn: www.linkedin.com/in/carlosmedinat
+- 📧 Email: carlosmedinat@gmail.com 
+- 🇨🇦 NPower Canada Alumni · Victoria, BC
